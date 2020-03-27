@@ -5,6 +5,10 @@
 #include "FlightInfoOneData.h"
 #include "FlightInfoTwoData.h"
 
+/*
+Converters for json to data structures.
+*/
+
 namespace tech_challenge {
 
 inline void from_json(const nlohmann::json& j, FlightInfoOneData& f)

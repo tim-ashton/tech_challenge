@@ -11,6 +11,17 @@
 
 namespace tech_challenge {
 
+/*
+MessageHandler the message handler takes stripped (json only) messages via
+an async call to onMessageRecieved(..)
+
+A thread runs and removes messages from the queue for processing and
+creating database querys (handled by a the parser & parser modules)
+
+When a message has been handled the message handler calls back to to 
+whatever is registered to take a message.
+
+*/
 class MessageHandler
 {
     std::function<void(std::string&&)> m_dataBaseQueryReady;

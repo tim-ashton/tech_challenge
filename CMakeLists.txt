@@ -10,7 +10,6 @@ add_subdirectory(test)
 
 
 add_library (lib${CMAKE_PROJECT_NAME} STATIC
-    main.cpp
     FlightInfoOne.cpp
     FlightInfoTwo.cpp
     MessageHandler.cpp
@@ -24,16 +23,4 @@ target_include_directories(lib${CMAKE_PROJECT_NAME} PRIVATE
 )
 
 target_link_libraries(lib${CMAKE_PROJECT_NAME} -lpthread)
-
-# add_executable (${CMAKE_PROJECT_NAME} 
-#     main.cpp
-#     FlightInfoOne.cpp
-#     FlightInfoTwo.cpp
-#     MessageHandler.cpp
-#     MessageReceiver.cpp
-#     Utils.cpp
-#     BaseConnectionHandler.cpp
-# )
-
-# target_link_libraries(${CMAKE_PROJECT_NAME} -lpthread)
 

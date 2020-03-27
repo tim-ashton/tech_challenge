@@ -14,7 +14,11 @@ If the data in recieved messages required a different format
 in the future then this could be replaced/updated to handle 
 the new format
 
-Note: T must be copy constructable.
+Note: 
+T must be copy constructable.
+
+Requires implementaion of from_json as per nlohmann/json library requirements,
+see ParserJsonConverters
 */
 template<class T>
 class Parser

@@ -8,7 +8,7 @@
 namespace tech_challenge {
 
 /*
-A thread safe queue
+A thread safe queue for passing data between the threaded modules.
 */
 template <class T>
 class ThreadSafeQueue

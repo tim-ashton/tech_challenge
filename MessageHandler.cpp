@@ -17,6 +17,7 @@ MessageHandler::~MessageHandler()
     stop();
 }
 
+// Could be done outside the class to decouple the modules from this handler
 void MessageHandler::initParserModules()
 {
     m_parserModules.emplace_back(std::make_unique<FlightInfoOne>());

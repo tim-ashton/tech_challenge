@@ -10,6 +10,7 @@ namespace tech_challenge {
 /*
 Provides a base class for a connection handler.
 This allows us to mock up some end to end unit tests.
+
 */
 class BaseConnectionHandler
 {

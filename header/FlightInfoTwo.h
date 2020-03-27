@@ -9,6 +9,8 @@ namespace tech_challenge {
 /*
 A concrete implementation of a BaseParserModule.
 
+This specializes parsing for a specific data structure.
+
 Uses a templated parser to extract data into the data container.
 */
 class FlightInfoTwo : public BaseParserModule
