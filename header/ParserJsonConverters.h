@@ -15,9 +15,8 @@ inline void from_json(const nlohmann::json& j, FlightInfoOneData& f)
 
 inline void from_json(const nlohmann::json& j, FlightInfoTwoData& f)
 {
-    f.str_data = j.at("str_data").get<decltype(FlightInfoTwoData::str_data)>();
-    f.expected_str_length = j.at("expected_str_length")
-        .get<decltype(FlightInfoTwoData::expected_str_length)>();
+    f.str_data = j.at("str_data").get<std::string>();
+    f.expected_str_length = j.at("expected_str_length").get<int>();
 }
 
 }

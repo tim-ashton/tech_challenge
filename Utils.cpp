@@ -40,5 +40,19 @@ std::string serializeUint16t(uint16_t value)
     return bytes;
 }
     
+std::string prepareUdpPayload(
+    uint16_t sequnceNum, 
+    const std::string &jsonData, bool makeBadChecksum)
+{
+    std::string sequenceNum = serializeUint16t(sequnceNum);
+    std::string checksum;
+
+    if(makeBadChecksum)
+        checksum = serializeUint64t(calculateChecksum(""));
+    else
+        checksum = serializeUint64t(calculateChecksum(jsonData));
+
+    return checksum + sequenceNum + jsonData;
+}
 
 }

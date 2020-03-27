@@ -25,7 +25,7 @@ void MessageReceiver::setJsonPayloadReadyCallback(
     m_jsonPayloadReadyFunc = function;
 }
 
-void MessageReceiver::handleUdpData(const std::string &data)
+void MessageReceiver::handleUdpData(std::string &&data)
 {
     std::string checksumBytes = data.substr(CHECKSUM_BYTE_POSITION, CHECKSUM_LEN_BYTES);
     std::string sequenceNumberBytes = data.substr(SEQUENCE_NUM_BYTE_POSITION, SEQUENCE_NUM_LEN_BYTES);

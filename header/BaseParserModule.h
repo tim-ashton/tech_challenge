@@ -1,16 +1,14 @@
 #pragma once
 
-// #include "Parser.h"
-
 #include <string>
 
 namespace tech_challenge {
 
-class BaseFlightInfo {
+class BaseParserModule {
 
 public:
-    BaseFlightInfo(){};
-    virtual ~BaseFlightInfo(){};
+    BaseParserModule(){};
+    virtual ~BaseParserModule(){};
 
     /*
     True if the message can be handled by this flight info

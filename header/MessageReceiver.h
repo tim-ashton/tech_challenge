@@ -32,7 +32,7 @@ public:
 
     void setJsonPayloadReadyCallback(std::function<void(std::string&&)> function);
 
-    void handleUdpData(const std::string &data);
+    void handleUdpData(std::string &&data);
 
 private:
     bool isAfterCurrentSequenceNum(uint16_t number);

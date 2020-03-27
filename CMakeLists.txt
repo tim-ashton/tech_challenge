@@ -8,26 +8,32 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_subdirectory(test)
 
-add_executable (${CMAKE_PROJECT_NAME} 
+
+add_library (lib${CMAKE_PROJECT_NAME} STATIC
     main.cpp
     FlightInfoOne.cpp
     FlightInfoTwo.cpp
     MessageHandler.cpp
     MessageReceiver.cpp
     Utils.cpp
+    BaseConnectionHandler.cpp
 )
 
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE 
+target_include_directories(lib${CMAKE_PROJECT_NAME} PRIVATE 
     header
 )
 
-target_link_libraries(${CMAKE_PROJECT_NAME} -lpthread)
+target_link_libraries(lib${CMAKE_PROJECT_NAME} -lpthread)
 
-# set(HEADER_FILES 
-#     ThreadSafeQueue.h
+# add_executable (${CMAKE_PROJECT_NAME} 
+#     main.cpp
+#     FlightInfoOne.cpp
+#     FlightInfoTwo.cpp
+#     MessageHandler.cpp
+#     MessageReceiver.cpp
+#     Utils.cpp
+#     BaseConnectionHandler.cpp
 # )
 
-# add_library(lib${CMAKE_PROJECT_NAME} 
-#     ${HEADER_FILES}
+# target_link_libraries(${CMAKE_PROJECT_NAME} -lpthread)
 
-# )

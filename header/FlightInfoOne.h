@@ -1,18 +1,18 @@
 #pragma once
 
-#include "BaseFlightInfo.h"
+#include "BaseParserModule.h"
 #include "Parser.h"
 #include "FlightInfoOneData.h"
 
 namespace tech_challenge {
 
 /*
-An implementation of a BaseFlightInfo.
+An implementation of a BaseParserModule.
 
 Uses a templated parser to extract data into the data container.
 */
 
-class FlightInfoOne : public BaseFlightInfo
+class FlightInfoOne : public BaseParserModule
 {
     Parser<FlightInfoOneData> m_parser;
     FlightInfoOneData m_data;

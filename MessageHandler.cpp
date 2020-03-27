@@ -9,7 +9,7 @@ const int MessageHandler::Q_RCV_TIMEOUT_MS = 50;
 MessageHandler::MessageHandler()
     : m_terminate(false)
 {
-    initFlightInfoHandlerList();
+    initParserModules();
 }
 
 MessageHandler::~MessageHandler()
@@ -17,10 +17,10 @@ MessageHandler::~MessageHandler()
     stop();
 }
 
-void MessageHandler::initFlightInfoHandlerList()
+void MessageHandler::initParserModules()
 {
-    m_flightInfoHandlers.emplace_back(std::make_unique<FlightInfoOne>());
-    m_flightInfoHandlers.emplace_back(std::make_unique<FlightInfoTwo>());
+    m_parserModules.emplace_back(std::make_unique<FlightInfoOne>());
+    m_parserModules.emplace_back(std::make_unique<FlightInfoTwo>());
 
     // Add new FlightInfo objects for new message types
 }
@@ -48,15 +48,15 @@ void MessageHandler::start()
                 // give 100ms before timing out.
                 if(m_queue.try_pop(message, std::chrono::milliseconds(Q_RCV_TIMEOUT_MS)))
                 {
-                    for(auto &f : m_flightInfoHandlers)
+                    for(auto &module : m_parserModules)
                     {
-                        if(f->canHandleMessage(message))
+                        if(module->canHandleMessage(message))
                         {
                             // This handler can deal with the message
                             // so go ahead and fire the callback
-                            f->messageToData(message);
+                            module->messageToData(message);
                             if(m_dataBaseQueryReady)
-                                m_dataBaseQueryReady(f->dbInsertQuery());
+                                m_dataBaseQueryReady(module->dbInsertQuery());
                         }
                     }
                 }
@@ -69,10 +69,16 @@ void MessageHandler::start()
 void MessageHandler::stop()
 {
     m_terminate = true;
-    if(m_handlerThread->joinable())
-        m_handlerThread->join();
 
-    m_handlerThread.reset();
+    if(m_handlerThread)
+    {
+        if(m_handlerThread->joinable())
+            m_handlerThread->join();
+
+        m_handlerThread.reset();
+    }
+
+    // Allow restarts.
     m_terminate = false;
 }
 

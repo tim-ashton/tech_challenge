@@ -14,7 +14,7 @@ namespace tech_challenge {
 class MessageHandler
 {
     std::function<void(std::string&&)> m_dataBaseQueryReady;
-    std::vector<std::unique_ptr<BaseFlightInfo>> m_flightInfoHandlers;
+    std::vector<std::unique_ptr<BaseParserModule>> m_parserModules;
     std::unique_ptr<std::thread> m_handlerThread;
     ThreadSafeQueue<std::string> m_queue;
     bool m_terminate;
@@ -53,8 +53,10 @@ private:
     /*
     Initialize a list of potential handlers for incoming
     Messages.
+
+    Note: The configuration of these handlers could be externalized.
     */
-    void initFlightInfoHandlerList();
+    void initParserModules();
 };
 
 

@@ -9,7 +9,12 @@ TEST_P(FlightInfoOne_test, ParamTestCorrectFormedJson) {
 
     FlightInfoOne infoOne;
 
-    EXPECT_TRUE(infoOne.canHandleMessage(testData.m_jsonStrParam));
+    bool canHandle = infoOne.canHandleMessage(testData.m_jsonStrParam);
+    EXPECT_EQ(testData.m_expectedCanHanleResult, canHandle);
+
+    // Can't do the rest of the test if unable to handle this msg.
+    if(!canHandle)
+        return;
 
     infoOne.messageToData(testData.m_jsonStrParam);
 

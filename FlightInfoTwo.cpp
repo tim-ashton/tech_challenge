@@ -20,7 +20,10 @@ bool FlightInfoTwo::messageToData(const std::string &message)
 
 std::string FlightInfoTwo::dbInsertQuery()
 {
-    return "todo";
+    std::string queryP1 = "INSERT INTO F2 VALUES ";
+    std::string queryP2  = (m_data.expected_str_length == m_data.str_data.size()) ? "true" : "false";
+    std::string query = queryP1 + queryP2;
+    return query;
 }
 
 FlightInfoTwoData FlightInfoTwo::data()

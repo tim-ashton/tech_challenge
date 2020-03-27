@@ -12,16 +12,13 @@ TEST_F(MessageReceiver_test, goodDataCallsBack)
 
     int callbackFiredCount = 0;
 
-    std::string sequenceNum = serializeUint16t(1);
-    std::string checksum = serializeUint64t(calculateChecksum(R"({"x_data":15,"y_data":99})"));
-
     MessageReceiver receiver;
     receiver.setJsonPayloadReadyCallback([&](std::string &&)->void
         {
             ++callbackFiredCount;
         });
 
-    receiver.handleUdpData(checksum + sequenceNum + R"({"x_data":15,"y_data":99})");
+    receiver.handleUdpData(prepareUdpPayload(1, R"({"x_data":15,"y_data":99})"));
 
     EXPECT_EQ(callbackFiredCount, 1);
 }
