@@ -18,4 +18,4 @@ cd build
 cmake ../
 
 ## Run Unit Tests (from Build directory)
-cd ./test/tech_challenge_test
+./test/tech_challenge_test
