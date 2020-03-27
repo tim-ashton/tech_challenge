@@ -2,6 +2,7 @@
 ## Get the source
 
 git clone https://github.com/tim-ashton/tech_challenge.git
+
 git submodule update --init
 
 ## Setup
