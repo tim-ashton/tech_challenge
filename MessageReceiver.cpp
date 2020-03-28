@@ -8,9 +8,9 @@ const int MessageReceiver::CHECKSUM_BYTE_POSITION = 0;
 const int MessageReceiver::CHECKSUM_LEN_BYTES = 8;
 
 const int MessageReceiver::SEQUENCE_NUM_BYTE_POSITION = 8;
-const int MessageReceiver::SEQUENCE_NUM_LEN_BYTES = 2;
+const int MessageReceiver::SEQUENCE_NUM_LEN_BYTES = 4;
 
-const int MessageReceiver::DATA_PAYLOAD_BYTE_POSITION = 10;
+const int MessageReceiver::DATA_PAYLOAD_BYTE_POSITION = 12;
 
 MessageReceiver::MessageReceiver()
     : m_currentSequenceNumber(0)
@@ -32,7 +32,7 @@ void MessageReceiver::handleUdpData(std::string &&data)
     std::string dataPayload = data.substr(DATA_PAYLOAD_BYTE_POSITION, std::string::npos);
 
     uint64_t checksum = *(reinterpret_cast<uint64_t*>(checksumBytes.data()));
-    uint16_t sequenceNumber = *(reinterpret_cast<uint16_t*>(sequenceNumberBytes.data()));
+    uint32_t sequenceNumber = *(reinterpret_cast<uint32_t*>(sequenceNumberBytes.data()));
 
     // drop message if incorrect checksum
     if(checksum != calculateChecksum(dataPayload))
@@ -50,20 +50,27 @@ void MessageReceiver::handleUdpData(std::string &&data)
         m_jsonPayloadReadyFunc(std::move(dataPayload));
 }
 
-bool MessageReceiver::isAfterCurrentSequenceNum(uint16_t number)
+bool MessageReceiver::isAfterCurrentSequenceNum(uint32_t number)
 {
-    // allow any number to start.
-    if(number > m_currentSequenceNumber && m_currentSequenceNumber == 0)
+    if(m_currentSequenceNumber < number && (number - m_currentSequenceNumber) < 0x80000000)
         return true;
 
-    const uint16_t max  = 0xFFFF;
-
-    uint16_t first = (m_currentSequenceNumber - number) % max;
-    uint16_t second = (number - m_currentSequenceNumber) % max;
-    if(first > second)
+    if(m_currentSequenceNumber > number && (m_currentSequenceNumber - number) > 0x80000000)
         return true;
-    
+
     return false;
+    // // allow any number to start.
+    // if(number > m_currentSequenceNumber && m_currentSequenceNumber == 0)
+    //     return true;
+
+    // const uint16_t max  = 0xFFFF;
+
+    // uint16_t first = (m_currentSequenceNumber - number) % max;
+    // uint16_t second = (number - m_currentSequenceNumber) % max;
+    // if(first > second)
+    //     return true;
+    
+    // return false;
 }
 
 }

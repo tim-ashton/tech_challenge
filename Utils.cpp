@@ -30,10 +30,10 @@ std::string serializeUint64t(uint64_t value)
     return bytes;
 }
 
-std::string serializeUint16t(uint16_t value)
+std::string serializeUint32t(uint32_t value)
 {
     std::string bytes;
-    for(int i = 0; i < sizeof(uint16_t); i++)
+    for(int i = 0; i < sizeof(uint32_t); i++)
     {
         bytes += (value >> (i*8));
     }
@@ -41,10 +41,10 @@ std::string serializeUint16t(uint16_t value)
 }
     
 std::string prepareUdpPayload(
-    uint16_t sequnceNum, 
+    uint32_t sequnceNum, 
     const std::string &jsonData, bool makeBadChecksum)
 {
-    std::string sequenceNum = serializeUint16t(sequnceNum);
+    std::string sequenceNum = serializeUint32t(sequnceNum);
     std::string checksum;
 
     if(makeBadChecksum)

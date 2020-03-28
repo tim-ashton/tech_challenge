@@ -20,11 +20,11 @@ eg fffffffffffffe0c
 std::string toHexString(uint64_t value);
 
 std::string serializeUint64t(uint64_t value);
-std::string serializeUint16t(uint16_t value);
+std::string serializeUint32t(uint32_t value);
 
 
 std::string prepareUdpPayload(
-    uint16_t sequnceNum, 
+    uint32_t sequnceNum, 
     const std::string &jsonData, bool makeBadChecksum = false);
 
 }

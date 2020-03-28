@@ -49,7 +49,7 @@ public:
     void handleUdpData(std::string &&data);
 
 private:
-    bool isAfterCurrentSequenceNum(uint16_t number);
+    bool isAfterCurrentSequenceNum(uint32_t number);
    
 };
 
